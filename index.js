@@ -1,5 +1,6 @@
 'use strict';
 function getDogImage(dogBreed) {
+  console.log(dogBreed);
   fetch(`https://dog.ceo/api/breed/${dogBreed}/images/random`)
     .then(response => response.json())
     .then(responseJson => 
@@ -20,7 +21,14 @@ function watchForm() {
   $('button').on('click', function(event) {
     event.preventDefault();
     let dogBreed = $('.js-results').val();
-    getDogImage(dogBreed);
+    let newDogBreed;
+    if (dogBreed.indexOf(' ') > 0) {
+      let tmp = dogBreed.split(' ');
+      newDogBreed = tmp.reverse().join('/');
+      getDogImage(newDogBreed);
+    } else {
+      getDogImage(dogBreed);
+    }
   });
 }
 
